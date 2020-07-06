@@ -1,5 +1,6 @@
 
-
+// Pull token from query string
+// Returns an object with the parameters as properties
 export const getHashParams = () => {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
