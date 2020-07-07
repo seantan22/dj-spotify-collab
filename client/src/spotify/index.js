@@ -88,9 +88,16 @@ export const getTopArtistsAllTime = () => axios.get('https://api.spotify.com/v1/
 
 export const getTopTracksAllTime = () => axios.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', { headers });
 
-export const getTrackAudioFeatures = trackId => {
+export const getAudioFeaturesOfTrack = trackId => {
     return axios.get('https://api.spotify.com/v1/audio-features/'.concat(trackId), { headers });
-}
+};
+
+const getTrackIds = tracks => tracks.items.map((track) => track.id).join(',');
+
+export const getAudioFeaturesOfTracks = tracks => {
+    const ids = getTrackIds(tracks);
+    return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`, { headers });
+};
 
 export const getUserInfo = () => {
     return axios
