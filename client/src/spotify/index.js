@@ -72,3 +72,36 @@ export const logout = () => {
     window.localStorage.removeItem('spotify_refresh_token');
     window.location.reload();
 }
+
+/*** API CALLS ***/
+
+const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+};
+
+export const getUser = () => axios.get('https://api.spotify.com/v1/me', { headers });
+
+export const getPlayingNow = () => axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers });
+
+export const getTopArtistsAllTime = () => axios.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term', { headers });
+
+export const getTopTracksAllTime = () => axios.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', { headers });
+
+export const getTrackAudioFeatures = trackId => {
+    return axios.get('https://api.spotify.com/v1/audio-features/'.concat(trackId), { headers });
+}
+
+export const getUserInfo = () => {
+    return axios
+        .all([getUser(), getPlayingNow(), getTopArtistsAllTime(), getTopTracksAllTime()])
+        .then(axios.spread((user, playingNow, topArtists, topTracks) => {
+            return {
+                user: user.data,
+                playingNow: playingNow.data,
+                topArtists: topArtists.data,
+                topTracks: topTracks.data,
+            };
+        }),
+    );  
+}
