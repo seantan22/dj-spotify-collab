@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-
 import { token } from '../spotify';
+import LoginScreen from './LoginScreen';
+import Overview from './Overview';
+import styled from 'styled-components/macro';
+import GlobalStyle from '../styles/GlobalStyle';
 
-import Login from './Login';
-import Profile from './Profile';
+const AppContainer = styled.div`
+  height: 100%;
+  min-height: 100vh;
+`;
 
 export default class App extends Component {
   state = {
@@ -18,9 +23,10 @@ export default class App extends Component {
     const { token } = this.state;
   
     return (
-      <div>
-        {token ? <Profile /> : <Login /> }
-      </div> 
+      <AppContainer>
+        <GlobalStyle />
+        {token ? <Overview /> : <LoginScreen /> }
+      </AppContainer> 
     )
   }
 }
