@@ -84,31 +84,59 @@ export const getUser = () => axios.get('https://api.spotify.com/v1/me', { header
 
 export const getPlayingNow = () => axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers });
 
-export const getTopArtistsAllTime = () => axios.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term', { headers });
-
 export const getTopTracksAllTime = () => axios.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', { headers });
 
-export const getAudioFeaturesOfTrack = trackId => {
-    return axios.get('https://api.spotify.com/v1/audio-features/'.concat(trackId), { headers });
+export const getAudioFeaturesOfTrack = track => {
+    return axios.get('https://api.spotify.com/v1/audio-features/'.concat(track.item.id), { headers });
 };
 
-const getTrackIds = tracks => tracks.items.map((track) => track.id).join(',');
+const getTrackIdsFromMatches = tracks => tracks.map((track) => track.id).join(',');
+const getTrackIdsFromTracks = tracks => tracks.items.map((track) => track.id).join(',');
+const getTrackIdsFromRecommendations = tracks => tracks.data.tracks.map((track) => track.id).join(',');
 
 export const getAudioFeaturesOfTracks = tracks => {
-    const ids = getTrackIds(tracks);
+    const ids = getTrackIdsFromTracks(tracks);
     return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`, { headers });
 };
 
+export const getAudioFeaturesOfTracksRecs = tracks => {
+    const ids = getTrackIdsFromRecommendations(tracks);
+    return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`, { headers });
+};
+
+export const getTracks = tracks => {
+    const ids = getTrackIdsFromMatches(tracks);
+    return axios.get(`https://api.spotify.com/v1/tracks?ids=${ids}`, { headers });
+}
+
+export const getFollowing = () => axios.get('https://api.spotify.com/v1/me/following?type=artist', { headers });
+
 export const getUserInfo = () => {
     return axios
-        .all([getUser(), getPlayingNow(), getTopArtistsAllTime(), getTopTracksAllTime()])
-        .then(axios.spread((user, playingNow, topArtists, topTracks) => {
+        .all([getUser(), getFollowing(), getPlayingNow(), getTopTracksAllTime()])
+        .then(axios.spread((user, following, playingNow, topTracks) => {
             return {
                 user: user.data,
+                following: following.data,
                 playingNow: playingNow.data,
-                topArtists: topArtists.data,
                 topTracks: topTracks.data,
             };
         }),
     );  
+}
+
+export const getRecommendationsBpm = (genres, minBPM, maxBPM) => {
+    return axios.get(`https://api.spotify.com/v1/recommendations?seed_genres=${genres}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
+}
+
+// Returns list with track ids and tempos
+export const getBpmMatches = (audioFeatures, bpm) => {
+
+    var bpmMatches = audioFeatures.data.audio_features.filter(function(track) {
+        return track.tempo > bpm-5 && track.tempo < bpm+5;
+    }).map(function({id, tempo}){
+        return {id, tempo};
+    });
+
+    return bpmMatches;
 }
