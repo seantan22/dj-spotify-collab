@@ -39,7 +39,7 @@ export default class LoginScreen extends Component {
     return (
       <Login>
         <h1> Beat Switch </h1>
-        <h4> Build your next DJ set</h4>
+        <h4> Build Your Next DJ Set With Confidence </h4>
         <LoginButton href='http://localhost:8888/login'> Login to Spotify </LoginButton>
       </Login>
     )
