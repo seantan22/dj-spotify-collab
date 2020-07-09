@@ -21,7 +21,6 @@ const getLocalRefreshToken = () => window.localStorage.getItem('spotify_refresh_
 const refreshAccessToken = async () => {
     try {
         const { data } = await axios.get(`/refresh_token?refresh_token=${getLocalRefreshToken()}`);
-        console.log(data);
         const { access_token } = data;
         setLocalAccessToken(access_token);
         window.location.reload();
@@ -77,6 +76,7 @@ export const logout = () => {
 
 const headers = {
     Authorization: `Bearer ${token}`,
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
 };
 
@@ -84,7 +84,7 @@ export const getUser = () => axios.get('https://api.spotify.com/v1/me', { header
 
 export const getPlayingNow = () => axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers });
 
-export const getTopTracksAllTime = () => axios.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', { headers });
+export const getTopTracksAllTime = () => axios.get('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term', { headers });
 
 export const getAudioFeaturesOfTrack = track => {
     return axios.get('https://api.spotify.com/v1/audio-features/'.concat(track.item.id), { headers });
@@ -111,13 +111,16 @@ export const getTracks = tracks => {
 
 export const getFollowing = () => axios.get('https://api.spotify.com/v1/me/following?type=artist', { headers });
 
+export const getPlaylists = () => axios.get('https://api.spotify.com/v1/me/playlists', { headers });
+
 export const getUserInfo = () => {
     return axios
-        .all([getUser(), getFollowing(), getPlayingNow(), getTopTracksAllTime()])
-        .then(axios.spread((user, following, playingNow, topTracks) => {
+        .all([getUser(), getFollowing(), getPlaylists(), getPlayingNow(), getTopTracksAllTime()])
+        .then(axios.spread((user, following, playlists, playingNow, topTracks) => {
             return {
                 user: user.data,
                 following: following.data,
+                playlists: playlists.data,
                 playingNow: playingNow.data,
                 topTracks: topTracks.data,
             };
@@ -126,7 +129,7 @@ export const getUserInfo = () => {
 }
 
 export const getRecommendationsBpm = (genres, minBPM, maxBPM) => {
-    return axios.get(`https://api.spotify.com/v1/recommendations?seed_genres=${genres}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
+    return axios.get(`https://api.spotify.com/v1/recommendations?limit=10&seed_genres=${genres}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
 }
 
 // Returns list with track ids and tempos
@@ -140,3 +143,23 @@ export const getBpmMatches = (audioFeatures, bpm) => {
 
     return bpmMatches;
 }
+
+export const putPlay = () => axios.put('https://api.spotify.com/v1/me/player/pause', { headers });
+
+/*** TRACK ***/
+
+export const getTrackInfo = trackId => axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, { headers });
+export const getTrackFeatures = trackId => axios.get(`https://api.spotify.com/v1/audio-features/${trackId}`, { headers });
+
+export const getTrackSummary = trackId => {
+    return axios
+    .all([getTrackInfo(trackId), getTrackFeatures(trackId)])
+    .then(
+        axios.spread((trackInfo, trackFeatures ) => {
+            return {
+                trackInfo: trackInfo.data,
+                trackFeatures: trackFeatures.data,
+            };
+        }),
+    );
+};
