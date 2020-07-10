@@ -3,7 +3,7 @@ import { getHashParams } from '../utils';
 
 /*** API TOKENS ***/
 
-const TIME_VALID = 3600 * 1000 // 1 hour
+const TIME_VALID = 7200 * 1000 // 2 hours
 
 // Set in Local Storage
 const setTokenTimestamp = () => window.localStorage.setItem('spotify_token_timestamp', Date.now());
@@ -130,8 +130,8 @@ export const getUserInfo = () => {
     );  
 }
 
-export const getRecommendationsBpm = (genres, minBPM, maxBPM) => {
-    return axios.get(`https://api.spotify.com/v1/recommendations?limit=10&seed_genres=${genres}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
+export const getRecommendationsBpm = (genre, minBPM, maxBPM) => {
+    return axios.get(`https://api.spotify.com/v1/recommendations?limit=10&seed_genres=${genre}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
 }
 
 // Returns list with track ids and tempos
