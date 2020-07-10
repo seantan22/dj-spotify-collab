@@ -104,9 +104,14 @@ const NavBar = () => (
     </Logo>
     <Menu>
       <MenuItem>
-        <NavLink to="/">
+        <NavLink to="now-playing">
             <PlayIcon />
             <div>Now Playing</div>
+        </NavLink>
+      </MenuItem>
+      <MenuItem>
+        <NavLink to="search">
+            <div>Search</div>
         </NavLink>
       </MenuItem>
       <MenuItem>
