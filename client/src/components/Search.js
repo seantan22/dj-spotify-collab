@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from '@reach/router';
 import { getRecommendationsBpm, getAudioFeaturesOfTracksRecs } from '../spotify';
 import { catchErrors } from '../utils';
 
@@ -8,7 +7,7 @@ import Main from '../styles/Main';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 import TrackItem from '../styles/TrackItem';
-const { colors, fontSizes, spacing } = theme;
+const { colors, fontSizes } = theme;
 
 const Header = styled.header`
 ${mixins.flexBetween};
@@ -59,22 +58,43 @@ const TrackBPM = styled.div`
 `;
 
 export default class Search extends Component {
-  state = {
-    user: '',
-  };
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+            searchBPM: null,
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        this.setState({searchBPM: e.target.value});
+    }
+    
+    async handleSubmit(event) {
+        event.preventDefault();
+        this.getData();
+    }
 
   componentDidMount() {
     catchErrors(this.getData());
   }
 
   async getData() {
-    // Recommendation Parameters
     const genres = 'hip-hop,r-n-b,house,pop,edm';
-    const minBPM = 150 - 5;
-    const maxBPM = 150 + 5;
+    var minBPM = '';
+    var maxBPM = '';
+    if(this.state.searchBPM == null) {
+        minBPM = 95;
+        maxBPM = 105;
+    } else {
+        minBPM = this.state.searchBPM - 5;
+        maxBPM = minBPM + 10;
+    }
 
     const recommendedTracks = await getRecommendationsBpm(genres, minBPM, maxBPM);
-
     const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
     
     this.setState({
@@ -90,8 +110,10 @@ export default class Search extends Component {
     return (
       <Main>
           <Header>
-              <h2>Search By BPM</h2>
-              <Input placeholder="Search" maxLength="3"/>
+            <h2>Search By BPM</h2>
+            <form onSubmit = {this.handleSubmit}>
+                <Input placeholder="100" maxLength="3" value={this.state.searchBPM} onChange={this.handleChange} />
+            </form> 
           </Header>
             
             <Overview>
