@@ -3,8 +3,10 @@ import { Router } from '@reach/router';
 import styled from 'styled-components/macro';
 
 import NavBar from './NavBar';
+import Home from './Home';
 import NowPlaying from './NowPlaying';
 import Track from './Track';
+import Search from './Search';
 import Profile from './Profile';
 
 import theme from '../styles/theme';
@@ -19,7 +21,9 @@ export default class Overview extends Component {
       <SiteWrapper>
         <NavBar />
         <Router primary={false}>
-          <NowPlaying path="/" />
+          <Home path="/" />
+          <NowPlaying path="now-playing" />
+          <Search path="search" />
           <Profile path="profile" />
           <Track path="track/:trackId" />
         </Router>
