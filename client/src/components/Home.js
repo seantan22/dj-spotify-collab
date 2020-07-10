@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-
+import { getUserInfo } from '../spotify';
+import { catchErrors } from '../utils';
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import theme from '../styles/theme';
@@ -12,6 +13,7 @@ const Brand = styled.header`
     align-items: flex-end;
     h2 {
         color: ${colors.lightGrey};
+        margin-bottom: 0px;
     }
     h1 {
         font-size: 80px;
@@ -38,8 +40,23 @@ const Feature = styled.div`
 `;
 
 export default class Home extends Component {
-  
+    state = {
+        topTracks: '',
+      };
+    
+    componentDidMount() {
+        catchErrors(this.getData());
+    }
+
+    async getData() {
+        const { topTracks } = await getUserInfo();
+        this.setState({
+            topTracks,
+        });
+    }
+
   render() {
+    const { topTracks } = this.state;
     return (
       <Main>
             <Brand>
@@ -64,10 +81,19 @@ export default class Home extends Component {
                     <h3>View Spotify profile statistics like your #1 played song.</h3>
                 </Feature>
             </FeatureLink>
+            {topTracks ?
+                <FeatureLink to={`/track/${topTracks.items[0].id}`}>
+                    <Feature>
+                        <h2>Additional Features</h2>
+                        <h3>Click on any song to view in-depth track metrics like popularity and energy level.</h3>
+                    </Feature>
+                </FeatureLink>
+                :
                 <Feature>
                     <h2>Additional Features</h2>
                     <h3>Click on any song to view in-depth track metrics like popularity and energy level.</h3>
                 </Feature>
+            }
       </Main> 
     )
   }

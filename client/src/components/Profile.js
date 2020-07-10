@@ -146,10 +146,8 @@ export default class Profile extends Component {
   }
 
   render() {
-
     const { user, following, playlists, topArtists, topTracks } = this.state;
     const totalPlaylists = playlists ? playlists.total : 0;
-
     return (
       <div>
         {user ? (
