@@ -90,7 +90,7 @@ export const categorizeEnergy = energy => {
     return 'Banger Alert';
   } else  if (energy < .95 && energy >= .80) {
     return 'High';
-  } else  if (energy < .80 && energy > .50) {
+  } else  if (energy < .80 && energy >= .50) {
     return 'Mid';
   } else {
     return 'Low';
@@ -102,7 +102,7 @@ export const categorizeDanceability = danceability => {
     return 'Woah';
   } else  if (danceability < .95 && danceability >= .80) {
     return 'High';
-  } else  if (danceability < .80 && danceability > .50) {
+  } else  if (danceability < .80 && danceability >= .50) {
     return 'Mid';
   } else {
     return 'Low';
@@ -110,9 +110,11 @@ export const categorizeDanceability = danceability => {
 }
 
 export const categorizeValence = valence => {
-  if(valence >= .50) {
-    return 'Positive';
+  if(valence >= .80) {
+    return 'High';
+  } else if (valence < .80 && valence >= 0.50) {
+    return 'Mid';
   } else {
-    return 'Negative';
+    return 'Low';
   }
 }
