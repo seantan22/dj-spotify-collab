@@ -7,6 +7,7 @@ import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
+import { UserIcon } from './icons';
 const { colors, fontSizes, spacing } = theme;
 
 const Header = styled.header`
@@ -161,7 +162,7 @@ export default class Profile extends Component {
                 {user.images.length > 0 ? (
                   <img src={user.images[0].url} alt="avatar" />
                 ) : (
-                  'No Avatar'
+                    <UserIcon />
                 )}
               </Avatar>
               <UserName href={user.external_urls.spotify} target="_blank" rel="noopener noreferrer">
