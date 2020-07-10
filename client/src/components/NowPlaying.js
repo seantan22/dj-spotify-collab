@@ -14,23 +14,18 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 const { colors, fontSizes } = theme;
 
-const Brand = styled.header`
+const Header = styled.header`
   ${mixins.flexBetween};
   color: ${colors.white};
-  h1 {
-      font-size: 50px;
+  h2 {
+    margin: 0;
   }
-`;
-
-const Header = styled.header`
-  ${mixins.flexCenter};
-  color: ${colors.lightGrey};
-  margin-top: 1vw;
 `;
 
 const Container = styled.div`
     text-align: center !important;
     align-items: center;
+    margin-top: 100px;
 `;
 
 const Overview = styled.section`
@@ -103,6 +98,8 @@ const BPMContainer = styled.div`
 `;
 
 const TrackBPM = styled.div`
+  display: flex;
+    justify-content: center; 
     margin-bottom: 45px;
     color: ${colors.lightGrey};
     font-size: ${fontSizes.xs};
@@ -308,9 +305,9 @@ export default class NowPlaying extends Component {
         <Main>
             <Overview>
                 <Section>
-                    <Brand>
+                    {/* <Brand>
                         <h1>Beat Switch</h1>
-                    </Brand>
+                    </Brand> */}
                     <Header>
                         <h2>Now Playing</h2>
                     </Header>
