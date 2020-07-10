@@ -61,7 +61,7 @@ const TitleLink = styled(Link)`
 
 const BPM = styled.h1`
   margin-top: 16px;
-  color: ${colors.offGreen};
+  color: ${colors.green};
   font-size: 25px;
   font-style: italic;
 `;
@@ -105,55 +105,36 @@ const TrackBPM = styled.div`
     font-size: ${fontSizes.xs};
 `;
 
-const Buttons = styled.section`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: 5px;
+const Filter = styled.form`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  margin-bottom: 20px;
 `;
 
-const GenreOnButton = styled.a`
-  background-color: ${colors.white};
-  color: ${colors.black};
-  border: 1px solid ${colors.white};
-  border-radius: 30px;
-  padding: 5px 16px;
-  margin-bottom: 20px;
-  font-size: ${fontSizes.xs};
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-align: center;
-  &:focus {
-    background-color: transparent;
-    color: ${colors.white};
-  }
-`;
-const GenreOffButton = styled.a`
+const GenreDropdown = styled.select`
   background-color: transparent;
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
-  padding: 5px 16px;
-  margin-bottom: 20px;
+  width: 250px;
+  margin-left: 70px;
+  padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  text-align: center;
-  &:focus {
-    background-color: transparent;
-    color: ${colors.white};
+  &:hover {
+    cursor: pointer;
   }
 `;
 
-const FilterButton = styled.a`
+const FilterButton = styled.input`
   background-color: ${colors.green};
   color: ${colors.white};
   border: 1px solid ${colors.green};
   border-radius: 30px;
   padding: 5px 40px;
-  margin-bottom: 20px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
   letter-spacing: 1px;
@@ -162,7 +143,7 @@ const FilterButton = styled.a`
   &:focus,
   &:hover {
     background-color: ${colors.offGreen};
-    color: ${colors.white};
+    cursor: pointer;
   }
 `;
 
@@ -190,19 +171,22 @@ export default class NowPlaying extends Component {
       playingNowBPM: '',
       recommendedTracks: '',
       recommendedTracksAudioFeatures: '',
-      genres: 'hip-hop,r-n-b,house,pop,edm',
-      hipHop: true,
-      rnb: true,
-      house: true,
-      pop: true,
-      edm: true,
+      genre: 'hip-hop',
     };
-    this.toggleHipHop = this.toggleHipHop.bind(this);
-    this.toggleRnB = this.toggleRnB.bind(this);
-    this.toggleHouse = this.toggleHouse.bind(this);
-    this.togglePop = this.togglePop.bind(this);
-    this.toggleEDM = this.toggleEDM.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(e) {
+    this.setState({genre: e.target.value});
+  }
+
+  async handleSubmit(event) {
+      event.preventDefault();
+      this.getData();
+  }
+
   
   componentDidMount() {
     catchErrors(this.getData());
@@ -216,11 +200,11 @@ export default class NowPlaying extends Component {
     const playingNowBPM = Math.round(playingNowFeatures.data.tempo);
 
     // Recommendation Parameters
-    const genres = 'hip-hop,r-n-b,house,pop,edm';
+    const genre = this.state.genre;
     const minBPM = playingNowBPM - 5;
     const maxBPM = playingNowBPM + 5;
 
-    const recommendedTracks = await getRecommendationsBpm(genres, minBPM, maxBPM);
+    const recommendedTracks = await getRecommendationsBpm(genre, minBPM, maxBPM);
 
     const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
     
@@ -230,71 +214,6 @@ export default class NowPlaying extends Component {
       recommendedTracks,
       recommendedTracksAudioFeatures: recommendedTracksAudioFeatures.data,
     });
-  }
-
-  toggleHipHop(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      hipHop: !prevState.hipHop,
-    }));
-    if(this.state.genres === '' && this.state.hipHop) {
-      this.setState({
-        genres: this.state.genres + 'hip-hop',
-      })
-    } else if (this.state.genres !== '' && this.state.hipHop) {
-      this.setState({
-        genres: this.state.genres + ',hip-hop',
-      })
-    } else if (this.state.genres === '' && !this.state.hipHop) {
-      return;
-    } else if (this.state.genres !== '' && !this.state.hipHop) {
-      this.setState({
-        genres: (this.state.genres.replace(/hip-hop/g,'')).replace(/,\s*$/, "").replace(/^\s*,/, ""),
-      })
-    };
-    console.log(this.state.genres);
-  }
-
-  toggleRnB(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      rnb: !prevState.rnb,
-    }));
-    if(this.state.genres === '' && this.state.rnb) {
-      this.setState({
-        genres: this.state.genres + 'r-n-b',
-      })
-    } else if (this.state.genres !== '' && this.state.rnb) {
-      this.setState({
-        genres: this.state.genres + ',r-n-b',
-      })
-    } else if (this.state.genres === '' && !this.state.rnb) {
-      return;
-    } else if (this.state.genres !== '' && !this.state.rnb) {
-      this.setState({
-        genres: (this.state.genres.replace(/r-n-b/g,'')).replace(/,\s*$/, "").replace(/^\s*,/, ""),
-      })
-    };
-    console.log(this.state.genres);
-  }
-
-  toggleHouse(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      house: !prevState.house,
-    }));
-  }
-  togglePop(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      pop: !prevState.pop,
-    }));
-  }
-  toggleEDM(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      edm: !prevState.edm,
-    }));
   }
 
   render() {
@@ -341,26 +260,40 @@ export default class NowPlaying extends Component {
                 </Section>
                 <Section>
                   <TracklistHeading>
-                      <h3>Matched Tracks</h3>
+                      <h3>Recommended Tracks</h3>
                   </TracklistHeading>
-                  <Buttons>
-                    {this.state.hipHop?
-                      <GenreOnButton onClick={(e) => {this.toggleHipHop(e)}}> Rap </GenreOnButton>: 
-                      <GenreOffButton onClick={(e) => {this.toggleHipHop(e)}}> Rap </GenreOffButton>}
-                    {this.state.rnb?
-                      <GenreOnButton onClick={(e) => {this.toggleRnB(e)}}> R&B </GenreOnButton>: 
-                      <GenreOffButton onClick={(e) => {this.toggleRnB(e)}}> R&B </GenreOffButton>}
-                    {this.state.house?
-                      <GenreOnButton onClick={(e) => {this.toggleHouse(e)}}> House </GenreOnButton>: 
-                      <GenreOffButton onClick={(e) => {this.toggleHouse(e)}}> House </GenreOffButton>}
-                    {this.state.pop?
-                      <GenreOnButton onClick={(e) => {this.togglePop(e)}}> Pop </GenreOnButton>: 
-                      <GenreOffButton onClick={(e) => {this.togglePop(e)}}> Pop </GenreOffButton>}
-                    {this.state.edm?
-                      <GenreOnButton onClick={(e) => {this.toggleEDM(e)}}> EDM </GenreOnButton>: 
-                      <GenreOffButton onClick={(e) => {this.toggleEDM(e)}}> EDM </GenreOffButton>}
-                    <FilterButton> Filter </FilterButton>
-                  </Buttons>
+                  <Filter onSubmit = {this.handleSubmit}>
+                        <GenreDropdown value={this.state.genre} onChange={this.handleChange} >
+                            <option value="acoustic">Acoustic</option>
+                            <option value="afrobeat">Afrobeat</option>
+                            {/* <option value="alt-rock">Alternative Rock</option> */}
+                            <option value="alternative">Alternative</option>
+                            {/* <option value="blues">Blues</option> */}
+                            <option value="country">Country</option>
+                            <option value="disco">Disco</option>
+                            <option value="drum-and-bass">Drum And Base</option>
+                            <option value="dubstep">Dubstep</option>
+                            <option value="edm">EDM</option>
+                            <option value="electronic">Electronic</option>
+                            {/* <option value="funk">Funk</option>
+                            <option value="grunge">Grunge</option> */}
+                            <option value="hip-hop">Hip-Hop</option>
+                            <option value="house">House</option>
+                            <option value="indie">Indie</option>
+                            {/* <option value="indie-pop">Indie-Pop</option> */}
+                            <option value="jazz">Jazz</option>
+                            <option value="latin">Latin</option>
+                            <option value="pop">Pop</option>
+                            {/* <option value="punk">Punk</option> */}
+                            <option value="r-n-b">R&B</option>
+                            {/* <option value="reggae">Reggae</option> */}
+                            <option value="rock">Rock</option>
+                            {/* <option value="soul">Soul</option> */}
+                            {/* <option value="spanish">Spanish</option> */}
+                            <option value="techno">Techno</option>
+                        </GenreDropdown>
+                        <FilterButton type="submit" value="Filter" />
+                  </Filter>
                   <ul>
                       {recommendedTracks ? recommendedTracks.data.tracks.map((track, i) => <TrackItem track={track} key={i} />) : ''}
                   </ul>
