@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import { SpotifyIcon, PlayIcon, UserIcon, GitHubIcon } from  './icons/'
+import { SpotifyIcon, PlayIcon, UserIcon, GitHubIcon, SearchIcon } from  './icons/'
 
 import styled from 'styled-components/macro';
 import theme from '../styles/theme';
@@ -111,6 +111,7 @@ const NavBar = () => (
       </MenuItem>
       <MenuItem>
         <NavLink to="search">
+            <SearchIcon />
             <div>Search</div>
         </NavLink>
       </MenuItem>
