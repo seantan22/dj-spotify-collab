@@ -77,6 +77,12 @@ const Number = styled.div`
   font-size: ${fontSizes.md};
 `;
 
+const Text = styled.div`
+  color: ${colors.white};
+  font-weight: 700;
+  font-size: ${fontSizes.md};
+`;
+
 const NumLabel = styled.p`
   color: ${colors.lightGrey};
   font-size: ${fontSizes.xs};
@@ -109,6 +115,7 @@ export default class Profile extends Component {
     user: '',
     following:  '',
     playlists: '',
+    topArtists: '',
     topTracks: '',
   };
 
@@ -117,19 +124,21 @@ export default class Profile extends Component {
   }
 
   async getData() {
-    const { user, following, playlists, topTracks } = await getUserInfo();
+    const { user, following, playlists, topArtists, topTracks } = await getUserInfo();
 
     this.setState({
       user,
       following,
       playlists,
+      topArtists,
       topTracks,
     });
   }
 
   render() {
-    const { user, following, playlists } = this.state;
+    const { user, following, playlists, topArtists, topTracks } = this.state;
     const totalPlaylists = playlists ? playlists.total : 0;
+    console.log(topArtists);
     return (
       <div>
         {user ? (
@@ -165,11 +174,11 @@ export default class Profile extends Component {
               </SocialStats>
               <Stats>
                 <Stat>
-                  <Number>TODO</Number>
-                  <NumLabel>#1 Album</NumLabel>
+                  <Text>{topArtists.items[0].name}</Text>
+                  <NumLabel>#1 Artist</NumLabel>
                 </Stat>
                 <Stat>
-                  <Number>TODO</Number>
+                  <Text>{topTracks.items[0].name}</Text>
                   <NumLabel>#1 Track</NumLabel>
                 </Stat>
               </Stats>
