@@ -84,6 +84,7 @@ export const getUser = () => axios.get('https://api.spotify.com/v1/me', { header
 
 export const getPlayingNow = () => axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers });
 
+export const getTopArtistsAllTime = () => axios.get('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term', { headers });
 export const getTopTracksAllTime = () => axios.get('https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term', { headers });
 
 export const getAudioFeaturesOfTrack = track => {
@@ -115,13 +116,14 @@ export const getPlaylists = () => axios.get('https://api.spotify.com/v1/me/playl
 
 export const getUserInfo = () => {
     return axios
-        .all([getUser(), getFollowing(), getPlaylists(), getPlayingNow(), getTopTracksAllTime()])
-        .then(axios.spread((user, following, playlists, playingNow, topTracks) => {
+        .all([getUser(), getFollowing(), getPlaylists(), getPlayingNow(), getTopArtistsAllTime(), getTopTracksAllTime()])
+        .then(axios.spread((user, following, playlists, playingNow, topArtists, topTracks) => {
             return {
                 user: user.data,
                 following: following.data,
                 playlists: playlists.data,
                 playingNow: playingNow.data,
+                topArtists: topArtists.data,
                 topTracks: topTracks.data,
             };
         }),
@@ -163,3 +165,5 @@ export const getTrackSummary = trackId => {
         }),
     );
 };
+
+export const createPlaylist = (user_id, playlistName, isPublic) => axios.post(`https://api.spotify.com/v1/users/${user_id}/playlists?name=${playlistName}&public=${isPublic}`, { headers });
