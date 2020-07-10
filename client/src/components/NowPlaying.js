@@ -16,7 +16,7 @@ const { colors, fontSizes } = theme;
 
 const Brand = styled.header`
   ${mixins.flexBetween};
-  color: ${colors.lightGrey};
+  color: ${colors.white};
   h1 {
       font-size: 50px;
   }
@@ -24,6 +24,7 @@ const Brand = styled.header`
 
 const Header = styled.header`
   ${mixins.flexCenter};
+  color: ${colors.lightGrey};
   margin-top: 1vw;
 `;
 
@@ -300,8 +301,9 @@ export default class NowPlaying extends Component {
   }
 
   render() {
+
     const { playingNow, playingNowBPM, recommendedTracks, recommendedTracksAudioFeatures } = this.state;
-    console.log(playingNow);
+    
     return (
         <Main>
             <Overview>
