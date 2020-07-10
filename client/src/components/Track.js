@@ -12,7 +12,7 @@ import Main from '../styles/Main';
 import Loading from './Loading';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
-const { colors, fontSizes, spacing } = theme;
+const { colors, fontSizes } = theme;
 
 
 const TrackContainer = styled.div`
@@ -80,7 +80,7 @@ const FeatureLabel = styled.p`
 `;
 
 const FeatureStat = styled.h4`
-  color: ${colors.lightestGrey};
+  color: ${colors.white};
   font-size: ${fontSizes.xxl};
   font-weight: 700;
   margin-bottom: 0;
