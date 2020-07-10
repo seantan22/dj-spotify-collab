@@ -5,7 +5,7 @@ import { getTrackSummary } from '../spotify';
 import { catchErrors, formatDuration, getYear, intToKey, intToMode, categorizeEnergy, categorizeDanceability, categorizeValence } from '../utils';
 
 import { StarIcon, HalfStarIcon } from  './icons/'
-import FeatureRadar from './FeatureRadar';
+// import FeatureRadar from './FeatureRadar';
 
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
@@ -178,17 +178,14 @@ export default class Track extends Component {
                         <AudioFeatures>
                             <Feature>
                                 <FeatureStat>{categorizeEnergy(trackFeatures.energy)}</FeatureStat>
-                                {/* <FeatureStat>{trackFeatures.energy*100}%</FeatureStat> */}
                                 <FeatureLabel>Energy</FeatureLabel>
                             </Feature>
                             <Feature>
                                 <FeatureStat>{categorizeDanceability(trackFeatures.danceability)}</FeatureStat>
-                                {/* <FeatureStat>{trackFeatures.danceability*100}%</FeatureStat> */}
                                 <FeatureLabel>Danceability</FeatureLabel>
                             </Feature>
                             <Feature>
                                 <FeatureStat>{categorizeValence(trackFeatures.valence) }</FeatureStat>
-                                {/* <FeatureStat>{trackFeatures.valence*100}%</FeatureStat> */}
                                 <FeatureLabel>Valence</FeatureLabel>
                             </Feature>
                         </AudioFeatures>
