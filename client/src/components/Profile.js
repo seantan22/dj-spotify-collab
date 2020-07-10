@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from '@reach/router';
 import { getUserInfo, logout } from '../spotify';
 import { catchErrors } from '../utils';
 
@@ -83,6 +83,15 @@ const Text = styled.div`
   font-size: ${fontSizes.md};
 `;
 
+const TopTrack = styled(Link)`
+  color: ${colors.white};
+  font-weight: 700;
+  font-size: ${fontSizes.md};
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const NumLabel = styled.p`
   color: ${colors.lightGrey};
   font-size: ${fontSizes.xs};
@@ -136,9 +145,10 @@ export default class Profile extends Component {
   }
 
   render() {
+
     const { user, following, playlists, topArtists, topTracks } = this.state;
     const totalPlaylists = playlists ? playlists.total : 0;
-    console.log(topArtists);
+
     return (
       <div>
         {user ? (
@@ -174,12 +184,12 @@ export default class Profile extends Component {
               </SocialStats>
               <Stats>
                 <Stat>
-                  <Text>{topArtists.items[0].name}</Text>
-                  <NumLabel>#1 Artist</NumLabel>
+                  <TopTrack to={`/track/${topTracks.items[0].id}`}>{topTracks.items[0].name}</TopTrack>
+                  <NumLabel>#1 Track</NumLabel>
                 </Stat>
                 <Stat>
-                  <Text>{topTracks.items[0].name}</Text>
-                  <NumLabel>#1 Track</NumLabel>
+                  <Text>{topArtists.items[0].name}</Text>
+                  <NumLabel>#1 Artist</NumLabel>
                 </Stat>
               </Stats>
               <LogoutButton onClick={logout}>Logout</LogoutButton>
