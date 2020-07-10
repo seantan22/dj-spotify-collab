@@ -4,8 +4,7 @@ import { Link } from '@reach/router';
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import theme from '../styles/theme';
-import mixins from '../styles/mixins';
-const { colors, fontSizes, spacing } = theme;
+const { colors } = theme;
 
 const Brand = styled.header`
     display: block;
@@ -50,7 +49,7 @@ export default class Home extends Component {
             <FeatureLink to='/now-playing'>
                 <Feature>
                     <h2>Now Playing</h2>
-                    <h3>Get the BPM of the song currently playing and receive song recommendations based on tempo.</h3>
+                    <h3>Get the BPM of the currently playing song and receive song recommendations based on tempo and genre.</h3>
                 </Feature>
             </FeatureLink>
             <FeatureLink to='/search'>
@@ -67,7 +66,7 @@ export default class Home extends Component {
             </FeatureLink>
                 <Feature>
                     <h2>Additional Features</h2>
-                    <h3>Click on any song to view in-depth track specifics like popularity and energy level.</h3>
+                    <h3>Click on any song to view in-depth track metrics like popularity and energy level.</h3>
                 </Feature>
       </Main> 
     )
