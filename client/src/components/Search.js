@@ -16,6 +16,29 @@ ${mixins.flexBetween};
   }
 `;
 
+const Filter = styled.form`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+const GenreDropdown = styled.select`
+  background-color: transparent;
+  color: ${colors.white};
+  border: 1px solid ${colors.white};
+  border-radius: 30px;
+  width: 250px;
+  margin-right: 40px;
+  padding: 5px 10px;
+  font-size: ${fontSizes.xs};
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const Input = styled.input`
     display: inline-block;
     font-weight: 700;
@@ -62,14 +85,19 @@ export default class Search extends Component {
         super(props);
         this.state = {
             user: '',
+            genre: 'hip-hop',
             searchBPM: null,
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeBPM = this.handleChangeBPM.bind(this);
+        this.handleChangeGenre = this.handleChangeGenre.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e) {
+    handleChangeGenre(e) {
+        this.setState({genre: e.target.value});
+    }
+    handleChangeBPM(e) {
         this.setState({searchBPM: e.target.value});
     }
     
@@ -78,30 +106,30 @@ export default class Search extends Component {
         this.getData();
     }
 
-  componentDidMount() {
-    catchErrors(this.getData());
-  }
-
-  async getData() {
-    const genres = 'hip-hop,r-n-b,house,pop,edm';
-    var minBPM = '';
-    var maxBPM = '';
-    if(this.state.searchBPM == null) {
-        minBPM = 95;
-        maxBPM = 105;
-    } else {
-        minBPM = this.state.searchBPM - 5;
-        maxBPM = minBPM + 10;
+    componentDidMount() {
+        catchErrors(this.getData());
     }
 
-    const recommendedTracks = await getRecommendationsBpm(genres, minBPM, maxBPM);
-    const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
-    
-    this.setState({
-      recommendedTracks,
-      recommendedTracksAudioFeatures: recommendedTracksAudioFeatures.data,
-    });
-  }
+    async getData() {
+        const genre = this.state.genre;
+        var minBPM = '';
+        var maxBPM = '';
+        if(this.state.searchBPM == null) {
+            minBPM = 95;
+            maxBPM = 105;
+        } else {
+            minBPM = this.state.searchBPM - 5;
+            maxBPM = minBPM + 10;
+        }
+
+        const recommendedTracks = await getRecommendationsBpm(genre, minBPM, maxBPM);
+        const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
+        
+        this.setState({
+        recommendedTracks,
+        recommendedTracksAudioFeatures: recommendedTracksAudioFeatures.data,
+        });
+    }
 
   render() {
 
@@ -110,10 +138,39 @@ export default class Search extends Component {
     return (
       <Main>
           <Header>
-            <h2>Search By BPM</h2>
-            <form onSubmit = {this.handleSubmit}>
-                <Input placeholder="100" maxLength="3" value={this.state.searchBPM} onChange={this.handleChange} />
-            </form> 
+            <h2>Search</h2>
+            <Filter onSubmit = {this.handleSubmit}>
+                <GenreDropdown value={this.state.genre} onChange={this.handleChangeGenre} >
+                    <option value="acoustic">Acoustic</option>
+                    <option value="afrobeat">Afrobeat</option>
+                    {/* <option value="alt-rock">Alternative Rock</option> */}
+                    <option value="alternative">Alternative</option>
+                    {/* <option value="blues">Blues</option> */}
+                    <option value="country">Country</option>
+                    <option value="disco">Disco</option>
+                    <option value="drum-and-bass">Drum And Base</option>
+                    <option value="dubstep">Dubstep</option>
+                    <option value="edm">EDM</option>
+                    <option value="electronic">Electronic</option>
+                    {/* <option value="funk">Funk</option>
+                    <option value="grunge">Grunge</option> */}
+                    <option value="hip-hop">Hip-Hop</option>
+                    <option value="house">House</option>
+                    <option value="indie">Indie</option>
+                    {/* <option value="indie-pop">Indie-Pop</option> */}
+                    <option value="jazz">Jazz</option>
+                    <option value="latin">Latin</option>
+                    <option value="pop">Pop</option>
+                    {/* <option value="punk">Punk</option> */}
+                    <option value="r-n-b">R&B</option>
+                    {/* <option value="reggae">Reggae</option> */}
+                    <option value="rock">Rock</option>
+                    {/* <option value="soul">Soul</option> */}
+                    {/* <option value="spanish">Spanish</option> */}
+                    <option value="techno">Techno</option>
+                </GenreDropdown>
+                <Input placeholder="100" maxLength="3" value={this.state.searchBPM} onChange={this.handleChangeBPM} />
+            </Filter> 
           </Header>
             
             <Overview>
