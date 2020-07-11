@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { token } from '../spotify';
+import styled from 'styled-components/macro';
 import LoginScreen from './LoginScreen';
 import Overview from './Overview';
-import styled from 'styled-components/macro';
 import GlobalStyle from '../styles/GlobalStyle';
+
 
 const AppContainer = styled.div`
   height: 100%;
