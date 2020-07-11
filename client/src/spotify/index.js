@@ -166,4 +166,21 @@ export const getTrackSummary = trackId => {
     );
 };
 
+/*** ALBUM ***/
+
+export const getAlbumInfo = albumId => axios.get(`https://api.spotify.com/v1/albums/${albumId}`, { headers });
+
+export const getAlbumSummary = albumId => {
+    return axios
+    .all([getAlbumInfo(albumId)])
+    .then(
+        axios.spread((albumInfo) => {
+            return {
+                albumInfo: albumInfo.data
+            }
+        })
+    )
+}
+ 
 export const createPlaylist = (user_id, playlistName, isPublic) => axios.post(`https://api.spotify.com/v1/users/${user_id}/playlists?name=${playlistName}&public=${isPublic}`, { headers });
+
