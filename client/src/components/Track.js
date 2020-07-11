@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
 
 import { getTrackSummary } from '../spotify';
 import { catchErrors, formatDuration, getYear, intToKey, intToMode, categorizeEnergy, categorizeDanceability, categorizeValence } from '../utils';
@@ -42,10 +43,16 @@ const ArtistName = styled.h2`
   text-align: left !important;
 `;
 
+const AlbumLink = styled(Link)`
+`;
+
 const Album = styled.h3`
     color: ${colors.lightGrey};
     font-weight: 400;
     font-size: 18px;
+    &:hover {
+        text-decoration: underline;
+    }
 `;
 
 const AudioInfo = styled.div`
@@ -116,7 +123,7 @@ export default class Track extends Component {
   }
 
   render() {
-    const {trackInfo, trackFeatures } = this.state;
+    const { trackInfo, trackFeatures } = this.state;
 
     return (
         <div>
@@ -138,9 +145,11 @@ export default class Track extends Component {
                                     </span>
                                 ))}
                             </ArtistName>
-                            <Album>
-                                {trackInfo.album.name}{' '}&middot; {getYear(trackInfo.album.release_date)}
-                            </Album>
+                            <AlbumLink to={`/album/${trackInfo.album.id}`}>
+                                <Album>
+                                    {trackInfo.album.name}{' '}&middot; {getYear(trackInfo.album.release_date)}
+                                </Album>
+                            </AlbumLink>
                         </Info>
                     </TrackContainer>
                     {trackFeatures && (
