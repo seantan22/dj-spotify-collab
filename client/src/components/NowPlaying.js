@@ -59,6 +59,9 @@ const Title = styled.h1`
 const TitleLink = styled(Link)`
 `;
 
+const AlbumLink = styled(Link)`
+`;
+
 const BPM = styled.h1`
   margin-top: 16px;
   color: ${colors.green};
@@ -75,7 +78,7 @@ const Album = styled.h3`
   color: ${colors.lightGrey};
   font-weight: 400;
   font-size: 16px;
-  a:hover {
+  &:hover {
       text-decoration: underline;
   }
 `;
@@ -250,9 +253,11 @@ export default class NowPlaying extends Component {
                                     </span>
                                 ))}
                             </ArtistName>
-                            <Album> 
-                              {playingNow.item.album.name}{' '}&middot; {getYear(playingNow.item.album.release_date)}
-                            </Album>
+                            <AlbumLink to={`/album/${playingNow.item.album.id}`}>
+                              <Album> 
+                                {playingNow.item.album.name}{' '}&middot; {getYear(playingNow.item.album.release_date)}
+                              </Album>
+                            </AlbumLink>
                             <BPM>{playingNowBPM} BPM</BPM> 
                             {/* <PlayPauseButton onClick={this.handlePlayClick}><PlayIcon /></PlayPauseButton> */}
                         </Container>
@@ -302,8 +307,8 @@ export default class NowPlaying extends Component {
                     <BPMContainer>
                         {recommendedTracksAudioFeatures ? (
                             <ul>
-                                {recommendedTracksAudioFeatures.audio_features.map((index, i) => (
-                                        <TrackBPM key={i}>{Math.round(index.tempo)} BPM</TrackBPM>  
+                                {recommendedTracksAudioFeatures.audio_features.map((track, i) => (
+                                        <TrackBPM key={i}>{Math.round(track.tempo)} BPM</TrackBPM>  
                             ))}
                             </ul>
                         ) : '' }
