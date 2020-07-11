@@ -6,6 +6,7 @@ import NavBar from './NavBar';
 import Home from './Home';
 import NowPlaying from './NowPlaying';
 import Track from './Track';
+import Album from './Album';
 import Search from './Search';
 import Profile from './Profile';
 
@@ -26,6 +27,7 @@ export default class Overview extends Component {
           <Search path="search" />
           <Profile path="profile" />
           <Track path="track/:trackId" />
+          <Album path="album/:albumId" />
         </Router>
       </SiteWrapper>
     )
