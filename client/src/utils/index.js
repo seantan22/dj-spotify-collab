@@ -23,6 +23,11 @@ export const catchErrors = fn => {
 // Get YYYY from YYYY-MM-DD
 export const getYear = date => date.split('-')[0];
 
+// Get MM-DD-YYYY from YYYY-MM-DD
+export const reformatDate = date => {
+  return date.split('-')[1] + '-' + date.split('-')[2] + '-' + date.split('-')[0];
+}
+
 // Get 00:00m from 000000ms
 export const formatDuration = millis => {
   const minutes = Math.floor(millis / 60000);
