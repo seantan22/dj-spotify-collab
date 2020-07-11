@@ -85,13 +85,13 @@ export default class Home extends Component {
                 <FeatureLink to={`/track/${topTracks.items[0].id}`}>
                     <Feature>
                         <h2>Additional Features</h2>
-                        <h3>Click on any song to view in-depth track metrics like popularity and energy level.</h3>
+                        <h3>Click on any song or album to view in-depth metrics like popularity and energy level.</h3>
                     </Feature>
                 </FeatureLink>
                 :
                 <Feature>
                     <h2>Additional Features</h2>
-                    <h3>Click on any song to view in-depth track metrics like popularity and energy level.</h3>
+                    <h3>Click on any song or album to view in-depth metrics like popularity and energy level.</h3>
                 </Feature>
             }
       </Main> 
