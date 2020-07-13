@@ -15,9 +15,17 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 const { colors, fontSizes } = theme;
 
+const Header = styled.header`
+  ${mixins.flexBetween};
+  color: ${colors.white};
+  h2 {
+    margin: 0;
+  }
+`;
 
 const TrackContainer = styled.div`
     display: flex;
+    margin-top: 50px;
     margin-bottom: 45px;
 `;
 
@@ -129,6 +137,9 @@ export default class Track extends Component {
         <div>
             {trackInfo ? (
                 <Main>
+                    <Header>
+                        <h2>Track Details</h2>
+                    </Header>
                     <TrackContainer>
                         <Artwork>
                             <img src={trackInfo.album.images[0].url} alt="Album Cover" />
