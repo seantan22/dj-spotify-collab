@@ -12,7 +12,18 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
+/*** ENVIRONMENT VARIABLES */
 
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+let REDIRECT_URI = process.env.REDIRECT_URI
+let FRONTEND_URI = process.env.FRONTEND_URI
+const PORT = process.env.PORT || 8888;
+
+if (process.env.NODE_ENV !== 'production') {
+  REDIRECT_URI = 'http://localhost:8888/callback';
+  FRONTEND_URI = 'http://localhost:3000';
+}
 
 /*** DEPENDENCIES ***/
 var express = require('express'); // Express web server framework
@@ -72,7 +83,7 @@ app.get('/login', function (req, res) {
 
   // your application requests authorization
   const scope =
-    'user-read-private user-read-email user-top-read user-read-currently-playing user-read-playback-state';
+    'user-read-private user-read-email user-top-read user-follow-read user-read-currently-playing user-read-playback-state user-modify-playback-state playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private';
 
   res.redirect(
     `https://accounts.spotify.com/authorize?${querystring.stringify({
