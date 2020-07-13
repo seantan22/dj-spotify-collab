@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { getAlbumSummary, getAudioFeaturesOfTracks } from '../spotify';
-import { catchErrors, reformatDate, formatDuration } from '../utils';
+import { catchErrors, dateMonthYear } from '../utils';
 
 import { StarIcon, HalfStarIcon } from  './icons/'
 
@@ -12,11 +12,19 @@ import Loading from './Loading';
 import AlbumTrack from '../styles/AlbumTrack';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
-const { colors, fontSizes, spacing } = theme;
+const { colors, fontSizes } = theme;
 
+const Header = styled.header`
+  ${mixins.flexBetween};
+  color: ${colors.white};
+  h2 {
+    margin: 0;
+  }
+`;
 
 const AlbumContainer = styled.div`
     display: flex;
+    margin-top: 50px;
     margin-bottom: 45px;
 `;
 
@@ -101,7 +109,7 @@ const BottomRow = styled.div`
   text-align: center;
   padding-top: 15px;
   padding-bottom: 20px;
-  border-bottom: 1px solid ${colors.white};
+  border-bottom: 1px solid ${colors.lightGrey};
 `;
 
 const BPMContainer = styled.div`
@@ -151,6 +159,9 @@ export default class Album extends Component {
         <div>
             {albumInfo ? (
                 <Main>
+                    <Header>
+                        <h2>Album Details</h2>
+                    </Header>
                     <AlbumContainer>
                         <AlbumCover>
                             <img src={albumInfo.images[0].url} alt="Album Cover" />
@@ -197,8 +208,8 @@ export default class Album extends Component {
                     </AlbumInfo>
                     <BottomRow>
                         <Feature>
-                            <FeatureStat>{reformatDate(albumInfo.release_date)}</FeatureStat>
-                            <FeatureLabel>Release Date</FeatureLabel>
+                            <FeatureStat>{dateMonthYear(albumInfo.release_date)}</FeatureStat>
+                            <FeatureLabel>Release</FeatureLabel>
                             </Feature>
                         <Feature>
                             <LabelName>{albumInfo.label}</LabelName>
