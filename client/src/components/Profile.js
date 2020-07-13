@@ -37,7 +37,7 @@ const UserName = styled.a`
   text-align: center;
   &:hover,
   &:focus {
-    color: ${colors.offGreen};
+    color: ${colors.brightRed};
   }
 `;
 
@@ -54,11 +54,11 @@ const SpotifyId = styled.h3`
 `;
 
 const SocialStats = styled.div`
-
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
   margin-top: ${spacing.base};
+  border-bottom: 1px solid ${colors.darkGrey};
 `;
 
 const Stats = styled.div`
@@ -73,7 +73,7 @@ const Stat = styled.div`
 `;
 
 const Number = styled.div`
-  color: ${colors.green};
+  color: ${colors.brightRed};
   font-weight: 700;
   font-size: ${fontSizes.md};
 `;
