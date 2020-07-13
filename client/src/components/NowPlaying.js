@@ -64,7 +64,7 @@ const AlbumLink = styled(Link)`
 
 const BPM = styled.h1`
   margin-top: 16px;
-  color: ${colors.green};
+  color: ${colors.brightRed};
   font-size: 25px;
   font-style: italic;
 `;
@@ -133,9 +133,9 @@ const GenreDropdown = styled.select`
 `;
 
 const FilterButton = styled.input`
-  background-color: ${colors.green};
+  background-color: ${colors.red};
   color: ${colors.white};
-  border: 1px solid ${colors.green};
+  border: 1px solid ${colors.red};
   border-radius: 30px;
   padding: 5px 40px;
   font-size: ${fontSizes.xs};
@@ -143,9 +143,8 @@ const FilterButton = styled.input`
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
-  &:focus,
   &:hover {
-    background-color: ${colors.offGreen};
+    background-color: ${colors.brightRed};
     cursor: pointer;
   }
 `;
