@@ -30,7 +30,7 @@ const LoginButton = styled.a`
   text-align: center;
   &:hover,
   &:focus {
-    background-color: ${colors.offGreen};
+    background-color: ${colors.brightGreen};
   }
 `;
 
