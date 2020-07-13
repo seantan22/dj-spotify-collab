@@ -35,7 +35,7 @@ const Logo = styled.div`
   transition: ${theme.transition};
   &:hover,
   &:focus {
-    color: ${colors.offGreen};
+    color: ${colors.brightGreen};
   }
   svg {
     width: 50px;
@@ -73,12 +73,12 @@ const MenuItem = styled.li`
     &:hover, &:focus {
         color: ${colors.white};
         background-color: ${colors.black};
-        border-left: 5px solid ${colors.offGreen};
+        border-left: 5px solid ${colors.brightRed};
     }
     .active {
         color: ${colors.white};
         background-color: ${colors.black};
-        border-left: 5px solid ${colors.offGreen};
+        border-left: 5px solid ${colors.brightRed};
         pointer-events: none;
     }
   }
