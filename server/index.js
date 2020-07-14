@@ -72,7 +72,7 @@ app
   .use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.get('/', function (req, res) {
-  res.render(path.resolve(__dirname, '../client/build/index.js'));
+  res.render(path.resolve(__dirname, '../client/build/index.html'));
 });
 
 app.get('/login', function (req, res) {
@@ -167,7 +167,7 @@ app.get('/refresh_token', function (req, res) {
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function (request, response) {
-  response.sendFile(path.resolve(__dirname, '../client/src', 'index.js'));
+  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(PORT, function () {
