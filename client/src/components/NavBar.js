@@ -147,7 +147,7 @@ const NavBar = () => (
     </GitHub>
     <Spotify>
       <a
-        href="https://github.com/seantan22/dj-spotify-collab"
+        href="https://developer.spotify.com/documentation/web-api/"
         target="_blank"
         rel="noopener noreferrer">
             <SpotifyIcon />
