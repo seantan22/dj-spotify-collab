@@ -18,11 +18,6 @@ let REDIRECT_URI = process.env.REDIRECT_URI
 let FRONTEND_URI = process.env.FRONTEND_URI
 const PORT = process.env.PORT || 8888;
 
-if (process.env.NODE_ENV !== 'production') {
-  REDIRECT_URI = 'http://localhost:8888/callback';
-  FRONTEND_URI = 'http://localhost:3000';
-}
-
 /*** DEPENDENCIES ***/
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
