@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://beat-switch.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },
