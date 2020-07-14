@@ -143,7 +143,7 @@ export const categorizeEnergy = energy => {
   } else  if (energy < .80 && energy >= .50) {
     return 'Mid';
   } else {
-    return 'Low';
+    return 'Chill';
   }
 }
 

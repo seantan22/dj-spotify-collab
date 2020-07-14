@@ -101,8 +101,13 @@ export const getAudioFeaturesOfTracks = tracks => {
 };
 
 export const getAudioFeaturesOfTracksRecs = tracks => {
-    const ids = getTrackIdsFromRecommendations(tracks);
-    return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`, { headers });
+    try {
+        const ids = getTrackIdsFromRecommendations(tracks);
+        return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`, { headers });
+    } catch(error) {
+        console.log(error);
+        return error;
+    }
 };
 
 export const getTracks = tracks => {
