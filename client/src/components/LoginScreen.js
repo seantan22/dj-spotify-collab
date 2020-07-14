@@ -5,6 +5,11 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 const { colors } = theme;
 
+const LOGIN_URI =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:8888/login'
+    : 'https://beat-switch.herokuapp.com/login';
+
 const Login = styled(Main)`
   ${mixins.flexCenter};
   flex-direction: column;
@@ -40,7 +45,7 @@ export default class LoginScreen extends Component {
       <Login>
         <h1> Beat Switch </h1>
         <h4> Build Your Next DJ Set With Confidence </h4>
-        <LoginButton href='http://localhost:8888/login'> Login to Spotify </LoginButton>
+        <LoginButton href={LOGIN_URI}> Login to Spotify </LoginButton>
       </Login>
     )
   }
