@@ -138,9 +138,9 @@ export const intToMode = int => {
 export const categorizeEnergy = energy => {
   if(energy >= .95) {
     return 'Banger Alert';
-  } else  if (energy < .95 && energy >= .80) {
-    return 'High';
-  } else  if (energy < .80 && energy >= .50) {
+  } else  if (energy < .95 && energy >= .75) {
+    return 'Turn Up';
+  } else  if (energy < .75 && energy >= .50) {
     return 'Mid';
   } else {
     return 'Chill';
@@ -148,10 +148,8 @@ export const categorizeEnergy = energy => {
 }
 
 export const categorizeDanceability = danceability => {
-  if(danceability >= .95) {
-    return 'Woah';
-  } else  if (danceability < .95 && danceability >= .80) {
-    return 'High';
+  if (danceability >= .80) {
+    return 'Go All Out';
   } else  if (danceability < .80 && danceability >= .50) {
     return 'Mid';
   } else {
@@ -160,10 +158,10 @@ export const categorizeDanceability = danceability => {
 }
 
 export const categorizeValence = valence => {
-  if(valence >= .80) {
-    return 'High';
-  } else if (valence < .80 && valence >= 0.50) {
-    return 'Mid';
+  if(valence >= .75) {
+    return 'Positive';
+  } else if (valence < .75 && valence >= 0.25) {
+    return 'Neutral';
   } else {
     return 'Low';
   }

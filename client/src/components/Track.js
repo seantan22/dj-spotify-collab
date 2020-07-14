@@ -206,7 +206,7 @@ export default class Track extends Component {
                             </Feature>
                             <Feature>
                                 <FeatureStat>{categorizeValence(trackFeatures.valence) }</FeatureStat>
-                                <FeatureLabel>Valence</FeatureLabel>
+                                <FeatureLabel>Mood</FeatureLabel>
                             </Feature>
                         </AudioFeatures>
                     </div>
