@@ -10,6 +10,7 @@
  */
 
 /*** ENVIRONMENT VARIABLES */
+// heroku config: set ____= 
 require('dotenv').config();
 
 const CLIENT_ID = process.env.CLIENT_ID;
