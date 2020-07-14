@@ -1,8 +1,5 @@
 // SPOTIFY WEB API AUTHORIZATION CODE FLOW
 
-// https://developer.spotify.com/documentation/general/guides/authorization-guide/
-// https://github.com/spotify/web-api-auth-examples
-
 /**
  * This is an example of a basic node.js script that performs
  * the Authorization Code oAuth2 flow to authenticate against
