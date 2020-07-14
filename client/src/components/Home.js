@@ -29,7 +29,7 @@ const FeatureLink = styled(Link)`
 
 const Feature = styled.div`
     margin-top: 40px;
-    margin-right: 80px;
+    margin-right: 100px;
     h2 {
         font-weight: 700;
     }
