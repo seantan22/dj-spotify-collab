@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import { SpotifyIcon, PlayIcon, UserIcon, GitHubIcon, SearchIcon } from  './icons/'
+import { SpotifyIcon, BeatSwitchIcon, PlayIcon, UserIcon, GitHubIcon, SearchIcon } from  './icons/'
 
 import styled from 'styled-components/macro';
 import theme from '../styles/theme';
@@ -28,15 +28,15 @@ const Container = styled.nav`
 `;
 
 const Logo = styled.div`
-  color: ${colors.green};
+  color: ${colors.red};
   margin-top: 30px;
   width: 70px;
   height: 70px;
-  transition: ${theme.transition};
-  &:hover,
-  &:focus {
-    color: ${colors.brightGreen};
-  }
+  // transition: ${theme.transition};
+  // &:hover,
+  // &:focus {
+  //   color: ${colors.brightGreen};
+  // }
   svg {
     width: 50px;
   }
@@ -46,7 +46,6 @@ const GitHub = styled.div`
   color: ${colors.lightGrey};
   width: 45px;
   height: 45px;
-  margin-bottom: 30px;
   a {
     &:hover {
       color: ${colors.blue};
@@ -56,6 +55,22 @@ const GitHub = styled.div`
     }
   }
 `;
+
+const Spotify = styled.div`
+  color: ${colors.green};
+  width: 45px;
+  height: 45px;
+  margin-bottom: 30px;
+  a {
+    &:hover {
+      color: ${colors.brightGreen};
+    }
+    svg {
+      width: 30px;
+    }
+  }
+`;
+
 const Menu = styled.ul`
   display: flex;
   flex-direction: column;
@@ -99,7 +114,7 @@ const NavBar = () => (
         <a
             href="/"
             rel="noopener noreferrer">
-                <SpotifyIcon />
+                <BeatSwitchIcon />
         </a>
     </Logo>
     <Menu>
@@ -130,6 +145,14 @@ const NavBar = () => (
             <GitHubIcon />
       </a>
     </GitHub>
+    <Spotify>
+      <a
+        href="https://github.com/seantan22/dj-spotify-collab"
+        target="_blank"
+        rel="noopener noreferrer">
+            <SpotifyIcon />
+      </a>
+    </Spotify>
   </Container>
 );
 
