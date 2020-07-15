@@ -197,15 +197,18 @@ export default class Track extends Component {
                         </AudioInfo>
                         <AudioFeatures>
                             <Feature>
-                                <FeatureStat>{categorizeEnergy(trackFeatures.energy)}</FeatureStat>
+                                {/* <FeatureStat>{categorizeEnergy(trackFeatures.energy)}</FeatureStat> */}
+                                <FeatureStat>{trackFeatures.energy*100}%</FeatureStat>
                                 <FeatureLabel>Energy</FeatureLabel>
                             </Feature>
                             <Feature>
-                                <FeatureStat>{categorizeDanceability(trackFeatures.danceability)}</FeatureStat>
+                                {/* <FeatureStat>{categorizeDanceability(trackFeatures.danceability)}</FeatureStat> */}
+                                <FeatureStat>{trackFeatures.danceability*100}%</FeatureStat>
                                 <FeatureLabel>Danceability</FeatureLabel>
                             </Feature>
                             <Feature>
-                                <FeatureStat>{categorizeValence(trackFeatures.valence) }</FeatureStat>
+                                <FeatureStat>{trackFeatures.valence*100}%</FeatureStat>
+                                <FeatureStat>{categorizeValence(trackFeatures.valence)}</FeatureStat>
                                 <FeatureLabel>Mood</FeatureLabel>
                             </Feature>
                         </AudioFeatures>

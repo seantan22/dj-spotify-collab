@@ -122,6 +122,7 @@ const GenreDropdown = styled.select`
   border-radius: 30px;
   width: 250px;
   margin-left: 70px;
+  margin-right: 30px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
