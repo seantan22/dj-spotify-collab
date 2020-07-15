@@ -1,8 +1,8 @@
 # Beat Switch
 
-Beat Switch is a web application created to help DJs build strong and consistent tracklists.
+Beat Switch is a web application created to help DJs build consistent tracklists. 
 
-*Built using Spotfify Web API, Node.js, Express, and React.*
+*Created using Spotfify Web API, Node.js, Express and React.*
 
 ## Motivation
 
@@ -11,6 +11,7 @@ When mixing music, a talented DJ will creatively fuse together song after song b
 From my personal experience mixing music, the process of looking for a new track based on tempo can be quite frustrating. Almost all the major music streaming platforms including Spotify, Apple Music and Soundcloud do not display the tempo of a song. With Beat Switch, DJs are able to find new songs based on tempo and genre. 
 
 ## Features
+
 **Now Playing:** Get the tempo of the currently playing song and receive song recommendations based on tempo and genre.
 
 
