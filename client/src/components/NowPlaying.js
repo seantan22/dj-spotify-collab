@@ -41,11 +41,28 @@ const Section = styled.div`
 
 const TracklistHeading = styled.div`
   ${mixins.flexBetween};
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   h3 {
     display: inline-block;
     margin: 0;
   }
+`;
+
+const DropdownLabels = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  h5 {
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+`;
+
+const GenreLabel = styled.div`
+  margin-left: 70px;
+`;
+const PopularityLabel = styled.div`
+  margin-left: 155px;
 `;
 
 const Title = styled.h1`
@@ -120,8 +137,25 @@ const GenreDropdown = styled.select`
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
-  width: 250px;
+  width: 180px;
   margin-left: 70px;
+  padding: 5px 10px;
+  font-size: ${fontSizes.xs};
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const PopularityDropdown = styled.select`
+  background-color: transparent;
+  color: ${colors.white};
+  border: 1px solid ${colors.white};
+  border-radius: 30px;
+  width: 100px;
+  margin-left: 10px;
   margin-right: 30px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
@@ -175,14 +209,19 @@ export default class NowPlaying extends Component {
       recommendedTracks: '',
       recommendedTracksAudioFeatures: '',
       genre: 'hip-hop',
+      targetPop: '90',
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeGenre = this.handleChangeGenre.bind(this);
+    this.handleChangePopularity = this.handleChangePopularity.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
+  handleChangeGenre(e) {
     this.setState({genre: e.target.value});
+  }
+  handleChangePopularity(e) {
+    this.setState({targetPop: e.target.value});
   }
 
   async handleSubmit(event) {
@@ -206,8 +245,9 @@ export default class NowPlaying extends Component {
     const genre = this.state.genre;
     const minBPM = playingNowBPM - 5;
     const maxBPM = playingNowBPM + 5;
+    const targetPop = this.state.targetPop;
 
-    const recommendedTracks = await getRecommendationsBpm(genre, minBPM, maxBPM);
+    const recommendedTracks = await getRecommendationsBpm(genre, targetPop, minBPM, maxBPM);
 
     const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
     
@@ -267,8 +307,12 @@ export default class NowPlaying extends Component {
                   <TracklistHeading>
                       <h3>Recommended Tracks</h3>
                   </TracklistHeading>
+                  <DropdownLabels>
+                      <GenreLabel><h5>Genre</h5></GenreLabel>
+                      <PopularityLabel><h5>Popularity</h5></PopularityLabel>
+                  </DropdownLabels>
                   <Filter onSubmit = {this.handleSubmit}>
-                        <GenreDropdown value={this.state.genre} onChange={this.handleChange} >
+                        <GenreDropdown value={this.state.genre} onChange={this.handleChangeGenre} >
                             <option value="acoustic">Acoustic</option>
                             <option value="afrobeat">Afrobeat</option>
                             {/* <option value="alt-rock">Alternative Rock</option> */}
@@ -297,6 +341,11 @@ export default class NowPlaying extends Component {
                             {/* <option value="spanish">Spanish</option> */}
                             <option value="techno">Techno</option>
                         </GenreDropdown>
+                        <PopularityDropdown value={this.state.targetPop} onChange={this.handleChangePopularity} >
+                            <option value="90">High</option>
+                            <option value="60">Mid</option>
+                            <option value="25">Low</option>
+                          </PopularityDropdown>
                         <FilterButton type="submit" value="Filter" />
                   </Filter>
                   <ul>

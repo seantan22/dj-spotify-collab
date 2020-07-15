@@ -10,7 +10,8 @@ import TrackItem from '../styles/TrackItem';
 const { colors, fontSizes } = theme;
 
 const Header = styled.header`
-${mixins.flexBetween};
+  display: block;
+  align-items: center;
   h2 {
     margin: 0;
   }
@@ -22,13 +23,47 @@ const Filter = styled.form`
   width: 100%;
 `;
 
+const DropdownLabels = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  h5 {
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+`;
+
+const GenreLabel = styled.div`
+  margin-right: 155px;
+`;
+const PopularityLabel = styled.div`
+  margin-right: 185px;
+`;
+
 const GenreDropdown = styled.select`
   background-color: transparent;
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
-  width: 250px;
-  margin-right: 40px;
+  width: 180px;
+  padding: 5px 10px;
+  font-size: ${fontSizes.xs};
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const PopularityDropdown = styled.select`
+  background-color: transparent;
+  color: ${colors.white};
+  border: 1px solid ${colors.white};
+  border-radius: 30px;
+  width: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -49,7 +84,7 @@ const Input = styled.input`
     padding: 6px 20px;
     width: 100px;
     text-align: center;
-    margin-right: 20px;
+    margin-right: 40px;
 `;
 
 const Overview = styled.section`
@@ -61,6 +96,9 @@ const Overview = styled.section`
 `;
 
 const Section = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0px;
 `;
 
@@ -86,17 +124,23 @@ export default class Search extends Component {
         this.state = {
             user: '',
             genre: 'hip-hop',
+            targetPop: '90',
             searchBPM: null,
         };
 
-        this.handleChangeBPM = this.handleChangeBPM.bind(this);
+        
         this.handleChangeGenre = this.handleChangeGenre.bind(this);
+        this.handleChangePopularity = this.handleChangePopularity.bind(this);
+        this.handleChangeBPM = this.handleChangeBPM.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeGenre(e) {
         this.setState({genre: e.target.value});
     }
+    handleChangePopularity(e) {
+      this.setState({targetPop: e.target.value});
+  }
     handleChangeBPM(e) {
         this.setState({searchBPM: e.target.value});
     }
@@ -122,7 +166,9 @@ export default class Search extends Component {
             maxBPM = minBPM + 10;
         }
 
-        const recommendedTracks = await getRecommendationsBpm(genre, minBPM, maxBPM);
+        const targetPop = this.state.targetPop;
+
+        const recommendedTracks = await getRecommendationsBpm(genre, targetPop, minBPM, maxBPM);
         const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
         
         this.setState({
@@ -138,7 +184,13 @@ export default class Search extends Component {
     return (
       <Main>
           <Header>
-            <h2>Search</h2>
+            <Section>
+              <h2>Search</h2>
+              <DropdownLabels>
+                  <GenreLabel><h5>Genre</h5></GenreLabel>
+                  <PopularityLabel><h5>Popularity</h5></PopularityLabel>
+              </DropdownLabels>
+            </Section>
             <Filter onSubmit = {this.handleSubmit}>
                 <GenreDropdown value={this.state.genre} onChange={this.handleChangeGenre} >
                     <option value="acoustic">Acoustic</option>
@@ -169,8 +221,13 @@ export default class Search extends Component {
                     {/* <option value="spanish">Spanish</option> */}
                     <option value="techno">Techno</option>
                 </GenreDropdown>
+                <PopularityDropdown value={this.state.targetPop} onChange={this.handleChangePopularity} >
+                  <option value="90">High</option>
+                  <option value="60">Mid</option>
+                  <option value="25">Low</option>
+                </PopularityDropdown>
                 <Input placeholder="100" maxLength="3" value={this.state.searchBPM} onChange={this.handleChangeBPM} />
-            </Filter> 
+            </Filter>
           </Header>
             
             <Overview>
