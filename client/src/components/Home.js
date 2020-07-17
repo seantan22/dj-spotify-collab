@@ -66,7 +66,7 @@ export default class Home extends Component {
             <FeatureLink to='/now-playing'>
                 <Feature>
                     <h2>Now Playing</h2>
-                    <h3>Get the BPM of the currently playing song and receive song recommendations based on tempo and genre.</h3>
+                    <h3>Get the BPM of the currently playing song and receive song recommendations based on tempo, genre, popularity and key.</h3>
                 </Feature>
             </FeatureLink>
             <FeatureLink to='/search'>
