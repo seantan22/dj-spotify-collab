@@ -135,8 +135,8 @@ export const getUserInfo = () => {
     );  
 }
 
-export const getRecommendationsBpm = (genre, targetPop, minBPM, maxBPM) => {
-    return axios.get(`https://api.spotify.com/v1/recommendations?limit=10&seed_genres=${genre}&target_popularity=${targetPop}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
+export const getRecommendationsBpm = (genre, targetPop, targetKey, minBPM, maxBPM) => {
+    return axios.get(`https://api.spotify.com/v1/recommendations?limit=10&seed_genres=${genre}&target_popularity=${targetPop}&target_key=${targetKey}&min_tempo=${minBPM}&max_tempo=${maxBPM}`, {headers});
 }
 
 // Returns list with track ids and tempos

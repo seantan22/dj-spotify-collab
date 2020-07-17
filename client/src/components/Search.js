@@ -37,7 +37,10 @@ const GenreLabel = styled.div`
   margin-right: 155px;
 `;
 const PopularityLabel = styled.div`
-  margin-right: 185px;
+  margin-right: 50px;
+`;
+const KeyLabel = styled.div`
+  margin-right: 200px;
 `;
 
 const GenreDropdown = styled.select`
@@ -45,6 +48,7 @@ const GenreDropdown = styled.select`
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
+  height: 35px;
   width: 180px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
@@ -61,8 +65,27 @@ const PopularityDropdown = styled.select`
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
+  height: 35px;
   width: 100px;
   margin-left: 10px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  font-size: ${fontSizes.xs};
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const KeyDropdown = styled.select`
+  background-color: transparent;
+  color: ${colors.white};
+  border: 1px solid ${colors.white};
+  border-radius: 30px;
+  width: 75px;
+  height: 35px;
   margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
@@ -125,12 +148,14 @@ export default class Search extends Component {
             user: '',
             genre: 'hip-hop',
             targetPop: '90',
-            searchBPM: null,
+            targetKey: '0',
+            targetBPM: null,
         };
 
         
         this.handleChangeGenre = this.handleChangeGenre.bind(this);
         this.handleChangePopularity = this.handleChangePopularity.bind(this);
+        this.handleChangeKey = this.handleChangeKey.bind(this);
         this.handleChangeBPM = this.handleChangeBPM.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -140,9 +165,12 @@ export default class Search extends Component {
     }
     handleChangePopularity(e) {
       this.setState({targetPop: e.target.value});
-  }
+    }
+    handleChangeKey(e) {
+      this.setState({targetKey: e.target.value});
+    }
     handleChangeBPM(e) {
-        this.setState({searchBPM: e.target.value});
+        this.setState({targetBPM: e.target.value});
     }
     
     async handleSubmit(event) {
@@ -158,17 +186,18 @@ export default class Search extends Component {
         const genre = this.state.genre;
         var minBPM = '';
         var maxBPM = '';
-        if(this.state.searchBPM == null) {
+        if(this.state.targetBPM == null) {
             minBPM = 95;
             maxBPM = 105;
         } else {
-            minBPM = this.state.searchBPM - 5;
+            minBPM = this.state.targetBPM - 5;
             maxBPM = minBPM + 10;
         }
 
         const targetPop = this.state.targetPop;
+        const targetKey = this.state.targetKey;
 
-        const recommendedTracks = await getRecommendationsBpm(genre, targetPop, minBPM, maxBPM);
+        const recommendedTracks = await getRecommendationsBpm(genre, targetPop, targetKey, minBPM, maxBPM);
         const recommendedTracksAudioFeatures = await getAudioFeaturesOfTracksRecs(recommendedTracks);
         
         this.setState({
@@ -189,6 +218,7 @@ export default class Search extends Component {
               <DropdownLabels>
                   <GenreLabel><h5>Genre</h5></GenreLabel>
                   <PopularityLabel><h5>Popularity</h5></PopularityLabel>
+                  <KeyLabel><h5>Key</h5></KeyLabel>
               </DropdownLabels>
             </Section>
             <Filter onSubmit = {this.handleSubmit}>
@@ -226,7 +256,21 @@ export default class Search extends Component {
                   <option value="60">Mid</option>
                   <option value="25">Low</option>
                 </PopularityDropdown>
-                <Input placeholder="100" maxLength="3" value={this.state.searchBPM} onChange={this.handleChangeBPM} />
+                <KeyDropdown value={this.state.targetKey} onChange={this.handleChangeKey} >
+                  <option value="0">C</option>
+                  <option value="1">D♭</option>
+                  <option value="2">D</option>
+                  <option value="3">E♭</option>
+                  <option value="4">E</option>
+                  <option value="5">F</option>
+                  <option value="6">G♭</option>
+                  <option value="7">G</option>
+                  <option value="8">A♭</option>
+                  <option value="9">A</option>
+                  <option value="10">B♭</option>
+                  <option value="11">B</option>
+                </KeyDropdown>
+                <Input placeholder="100" maxLength="3" value={this.state.targetBPM} onChange={this.handleChangeBPM} />
             </Filter>
           </Header>
             
