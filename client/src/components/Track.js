@@ -209,7 +209,7 @@ export default class Track extends Component {
                             <Feature>
                                 <FeatureStat>{Math.round(trackFeatures.valence*1000)/10}%</FeatureStat>
                                 {/* <FeatureStat>{categorizeValence(trackFeatures.valence)}</FeatureStat> */}
-                                <FeatureLabel>Mood</FeatureLabel>
+                                <FeatureLabel>Valence</FeatureLabel>
                             </Feature>
                         </AudioFeatures>
                     </div>
