@@ -7,6 +7,7 @@ import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
+import media from '../styles/media';
 import { UserIcon } from './icons';
 const { colors, fontSizes, spacing } = theme;
 
@@ -66,6 +67,10 @@ const Stats = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
   margin-top: ${spacing.base};
+  ${media.tablet`
+    grid-gap: 10px;
+    grid-template-columns: repeat(1, 1fr);
+  `};
 `;
 
 const Stat = styled.div`
