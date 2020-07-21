@@ -66,7 +66,7 @@ const ArtistName = styled.h2`
   font-weight: 700;
   text-align: left !important;
   ${media.tablet`
-    font-size: 20px;
+    font-size: ${fontSizes.md};
     text-align: center !important;
   `};
 `;
