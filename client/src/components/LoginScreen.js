@@ -17,13 +17,13 @@ const Login = styled(Main)`
   min-height: 100vh;
   h1 {
     font-size: 140px;
-    ${media.phablet`
+    ${media.tablet`
       font-size: 50px;
     `};
   }
   h4 {
     font-size: 30px;
-    ${media.phablet`
+    ${media.tablet`
       font-size: 18px;
     `};
   }
