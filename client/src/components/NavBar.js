@@ -121,6 +121,10 @@ const MenuItem = styled.li`
         color: ${colors.white};
         background-color: ${colors.black};
         border-left: 5px solid ${colors.brightRed};
+        ${media.tablet`
+          border-left: 0px solid;
+          border-top: 3px solid ${colors.brightRed};
+        `};
     }
     .active {
         color: ${colors.white};
@@ -128,8 +132,8 @@ const MenuItem = styled.li`
         border-left: 5px solid ${colors.brightRed};
         pointer-events: none;
         ${media.tablet`
-          border-left: 0;
-          border-top: 3px solid ${colors.offGreen};
+          border-left: 0px solid;
+          border-top: 3px solid ${colors.brightRed};
         `};
     }
   }
