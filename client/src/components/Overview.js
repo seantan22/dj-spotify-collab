@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router } from '@reach/router';
 import styled from 'styled-components/macro';
+import media from '../styles/media'
 
 import NavBar from './NavBar';
 import Home from './Home';
@@ -14,6 +15,10 @@ import theme from '../styles/theme';
 
 const SiteWrapper = styled.div`
   padding-left: ${theme.navWidth};
+  ${media.tablet`
+    padding-left: 0;
+    padding-bottom: 50px;
+  `};
 `;
 
 export default class Overview extends Component {
