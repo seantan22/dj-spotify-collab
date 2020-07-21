@@ -16,6 +16,8 @@ Run Backend:
 cd server
 node index.js
 
+Heroku Deployment:
+git push heroku master
 
 
 ## Motivation
