@@ -4,8 +4,6 @@ import { Link } from '@reach/router';
 import { getUserInfo, getAudioFeaturesOfTrack, getRecommendationsBpm, getAudioFeaturesOfTracksRecs } from '../spotify';
 import { catchErrors, getYear } from '../utils';
 
-import { PlayIcon } from  './icons/'
-
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import Loading from './Loading';
@@ -205,22 +203,6 @@ const FilterButton = styled.input`
   }
 `;
 
-const PlayPauseButton = styled.a`
-  background-color: transparent;
-  color: ${colors.white};
-  border: 1px solid ${colors.white};
-  border-radius: 100%;
-  padding: 10px 8px 10px 12px;
-  d-flex: block;
-  justify-content: center;
-  text-align: center;
-  &:hover {
-    background-color: transparent;
-    color: ${colors.white};
-    border: 2px solid ${colors.white};
-  }
-`;
-
 export default class NowPlaying extends Component {
   constructor(props) {
     super(props);
@@ -325,7 +307,6 @@ export default class NowPlaying extends Component {
                               </Album>
                             </AlbumLink>
                             <BPM>{playingNowBPM} BPM</BPM> 
-                            {/* <PlayPauseButton onClick={this.handlePlayClick}><PlayIcon /></PlayPauseButton> */}
                         </Container>
                     ) : <Loading /> }
                 </Section>
