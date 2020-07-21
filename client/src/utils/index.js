@@ -134,35 +134,3 @@ export const intToMode = int => {
     return 'Minor';
   }
 }
-
-export const categorizeEnergy = energy => {
-  if(energy >= .95) {
-    return 'Banger Alert';
-  } else  if (energy < .95 && energy >= .75) {
-    return 'Turn Up';
-  } else  if (energy < .75 && energy >= .50) {
-    return 'Mid';
-  } else {
-    return 'Chill';
-  }
-}
-
-export const categorizeDanceability = danceability => {
-  if (danceability >= .80) {
-    return 'Go All Out';
-  } else  if (danceability < .80 && danceability >= .50) {
-    return 'Mid';
-  } else {
-    return 'Low';
-  }
-}
-
-export const categorizeValence = valence => {
-  if(valence >= .75) {
-    return 'Positive';
-  } else if (valence < .75 && valence >= 0.25) {
-    return 'Neutral';
-  } else {
-    return 'Low';
-  }
-}

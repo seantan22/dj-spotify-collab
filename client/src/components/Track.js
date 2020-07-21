@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 
 import { getTrackSummary } from '../spotify';
-import { catchErrors, formatDuration, getYear, intToKey, intToMode, categorizeEnergy, categorizeDanceability, categorizeValence } from '../utils';
+import { catchErrors, formatDuration, getYear, intToKey, intToMode } from '../utils';
 
 import { StarIcon, HalfStarIcon } from  './icons/'
-// import FeatureRadar from './FeatureRadar';
 
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
@@ -214,7 +213,6 @@ export default class Track extends Component {
                         </AudioFeatures>
                     </div>
                     )}
-                    {/* <FeatureRadar features={trackFeatures} type="" /> */}
                 </Main>
             ) : <Loading />}
         </div>
