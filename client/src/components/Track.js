@@ -12,6 +12,7 @@ import Main from '../styles/Main';
 import Loading from './Loading';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
+import media from '../styles/media';
 const { colors, fontSizes } = theme;
 
 const Header = styled.header`
@@ -26,21 +27,37 @@ const TrackContainer = styled.div`
     display: flex;
     margin-top: 50px;
     margin-bottom: 45px;
+    ${media.phablet`
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+    `};
 `;
 
 const Info = styled.div`
   flex-grow: 0.5;
+  ${media.phablet`
+    text-align: center;
+    margin-top: 30px;
+  `};
 `;
 
 const Artwork = styled.div`
     ${mixins.coverShadow};
     max-width: 200px;
     margin-right: 40px;
+    ${media.tablet`
+        max-width: 200px;
+        margin: 0 auto;
+    `};
 `;
 
 const TrackName = styled.h1`
   font-size: 38px;
   margin: 0 0 5px;
+  ${media.tablet`
+    font-size: 30px;
+  `};
 `;
 
 const ArtistName = styled.h2`
@@ -48,6 +65,10 @@ const ArtistName = styled.h2`
   font-size: 26px;
   font-weight: 700;
   text-align: left !important;
+  ${media.tablet`
+    font-size: 20px;
+    text-align: center !important;
+  `};
 `;
 
 const AlbumLink = styled(Link)`
@@ -63,14 +84,19 @@ const Album = styled.h3`
 `;
 
 const AudioInfo = styled.div`
-  ${mixins.flexCenter};
-  flex-direction: column;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(100px, 1fr));
-  width: 100%;
-  padding-bottom: 15px;
-  margin-bottom: 3px;
-  text-align: center;
+    ${mixins.flexCenter};
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(100px, 1fr));
+    width: 100%;
+    padding-bottom: 15px;
+    margin-bottom: 3px;
+    text-align: center;
+    ${media.tablet`
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    `};
 `;
 
 const AudioFeatures = styled.div`
@@ -81,6 +107,10 @@ const AudioFeatures = styled.div`
   width: 100%;
   text-align: center;
   padding-top: 15px;
+  ${media.tablet`
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        padding-top: 0px;
+    `};
 `;
 
 const Feature = styled.div`
@@ -88,16 +118,22 @@ const Feature = styled.div`
 `;
 
 const FeatureLabel = styled.p`
-  color: ${colors.lightestGrey};
-  font-size: ${fontSizes.sm};
-  margin-bottom: 0;
+    color: ${colors.lightestGrey};
+    font-size: ${fontSizes.sm};
+    margin-bottom: 0;
+    ${media.tablet`
+        font-size: ${fontSizes.xs};
+    `};
 `;
 
 const FeatureStat = styled.h4`
-  color: ${colors.white};
-  font-size: ${fontSizes.xxl};
-  font-weight: 700;
-  margin-bottom: 0;
+    color: ${colors.white};
+    font-size: ${fontSizes.xxl};
+    font-weight: 700;
+    margin-bottom: 0;
+    ${media.tablet`
+        font-size: ${fontSizes.lg};
+    `};
 `;
 
 const Stars = styled.div`
