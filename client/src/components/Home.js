@@ -51,7 +51,7 @@ export default class Home extends Component {
     async getData() {
         const { topTracks } = await getUserInfo();
         this.setState({
-            topTracks,
+            topTracks
         });
     }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import theme from '../styles/theme';
+import media from '../styles/media';
 import mixins from '../styles/mixins';
 const { colors } = theme;
 
@@ -16,9 +17,15 @@ const Login = styled(Main)`
   min-height: 100vh;
   h1 {
     font-size: 140px;
+    ${media.phablet`
+      font-size: 50px;
+    `};
   }
   h4 {
     font-size: 30px;
+    ${media.phablet`
+      font-size: 18px;
+    `};
   }
 `;
 const LoginButton = styled.a`
