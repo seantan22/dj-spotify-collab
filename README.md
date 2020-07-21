@@ -4,6 +4,20 @@ Beat Switch is a web application created to help DJs build consistent tracklists
 
 *Created using Spotfify Web API, Node.js, Express and React.*
 
+## Setup
+
+Clone
+
+Run Frontend:
+cd client
+npm start
+
+Run Backend:
+cd server
+node index.js
+
+
+
 ## Motivation
 
 When mixing music, a talented DJ will creatively fuse together song after song by executing technical transitions. These transitions take into account a variety of track characteristics, the most important being tempo. A general rule when choosing the next track is to stay within ±5 beats per minute of the previous track. This allows a DJ to smoothly blend two songs together in a way that remains undetected by the crowd. 
