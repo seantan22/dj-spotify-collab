@@ -5,7 +5,7 @@ import { catchErrors } from '../utils';
 import styled from 'styled-components/macro';
 import Main from '../styles/Main';
 import theme from '../styles/theme';
-import mixins from '../styles/mixins';
+import media from '../styles/media';
 import TrackItem from '../styles/TrackItem';
 const { colors, fontSizes } = theme;
 
@@ -20,27 +20,27 @@ const Header = styled.header`
 const Filter = styled.form`
   display: flex;
   justify-content: flex-end;
-  width: 100%;
-`;
-
-const DropdownLabels = styled.div`
-  display: flex;
-  justify-content: start;
   align-items: center;
-  h5 {
-    display: inline-block;
-    margin-bottom: 3px;
-  }
+  width: 100%;
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 const GenreLabel = styled.div`
-  margin-right: 155px;
+  margin-right: 5px;
+  ${media.tablet`
+  margin-top: 20px;
+`};
 `;
 const PopularityLabel = styled.div`
-  margin-right: 50px;
+  margin-right: 5px;
 `;
 const KeyLabel = styled.div`
-  margin-right: 200px;
+  margin-right: 5px;
+`;
+const TempoLabel = styled.div`
+  margin-right: 5px;
 `;
 
 const GenreDropdown = styled.select`
@@ -50,6 +50,7 @@ const GenreDropdown = styled.select`
   border-radius: 30px;
   height: 35px;
   width: 180px;
+  margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -58,6 +59,9 @@ const GenreDropdown = styled.select`
   &:hover {
     cursor: pointer;
   }
+  ${media.tablet`
+    margin-bottom: 5px;
+  `};
 `;
 
 const PopularityDropdown = styled.select`
@@ -67,7 +71,7 @@ const PopularityDropdown = styled.select`
   border-radius: 30px;
   height: 35px;
   width: 100px;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
@@ -77,6 +81,9 @@ const PopularityDropdown = styled.select`
   &:hover {
     cursor: pointer;
   }
+  ${media.tablet`
+    margin-bottom: 5px;
+  `};
 `;
 
 const KeyDropdown = styled.select`
@@ -86,7 +93,7 @@ const KeyDropdown = styled.select`
   border-radius: 30px;
   width: 75px;
   height: 35px;
-  margin-right: 10px;
+  margin-right: 20px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -95,6 +102,9 @@ const KeyDropdown = styled.select`
   &:hover {
     cursor: pointer;
   }
+  ${media.tablet`
+    margin-bottom: 5px;
+  `};
 `;
 
 const Input = styled.input`
@@ -108,6 +118,9 @@ const Input = styled.input`
     width: 100px;
     text-align: center;
     margin-right: 40px;
+    ${media.tablet`
+    display: block;
+  `};
 `;
 
 const Overview = styled.section`
@@ -139,6 +152,9 @@ const TrackBPM = styled.div`
     margin-bottom: 45px;
     color: ${colors.lightGrey};
     font-size: ${fontSizes.xs};
+    ${media.tablet`
+    margin-bottom: 30px;
+  `};
 `;
 
 export default class Search extends Component {
@@ -215,13 +231,9 @@ export default class Search extends Component {
           <Header>
             <Section>
               <h2>Search</h2>
-              <DropdownLabels>
-                  <GenreLabel><h5>Genre</h5></GenreLabel>
-                  <PopularityLabel><h5>Popularity</h5></PopularityLabel>
-                  <KeyLabel><h5>Key</h5></KeyLabel>
-              </DropdownLabels>
             </Section>
             <Filter onSubmit = {this.handleSubmit}>
+            <GenreLabel><h5>Genre</h5></GenreLabel>
                 <GenreDropdown value={this.state.genre} onChange={this.handleChangeGenre} >
                     <option value="acoustic">Acoustic</option>
                     <option value="afrobeat">Afrobeat</option>
@@ -251,11 +263,13 @@ export default class Search extends Component {
                     {/* <option value="spanish">Spanish</option> */}
                     <option value="techno">Techno</option>
                 </GenreDropdown>
+                <PopularityLabel><h5>Popularity</h5></PopularityLabel>
                 <PopularityDropdown value={this.state.targetPop} onChange={this.handleChangePopularity} >
                   <option value="90">High</option>
                   <option value="60">Mid</option>
                   <option value="25">Low</option>
                 </PopularityDropdown>
+                <KeyLabel><h5>Key</h5></KeyLabel>
                 <KeyDropdown value={this.state.targetKey} onChange={this.handleChangeKey} >
                   <option value="0">C</option>
                   <option value="1">D♭</option>
@@ -270,6 +284,7 @@ export default class Search extends Component {
                   <option value="10">B♭</option>
                   <option value="11">B</option>
                 </KeyDropdown>
+                <TempoLabel><h5>Tempo</h5></TempoLabel>
                 <Input placeholder="100" maxLength="3" value={this.state.targetBPM} onChange={this.handleChangeBPM} />
             </Filter>
           </Header>
