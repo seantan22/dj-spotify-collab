@@ -93,7 +93,7 @@ const KeyDropdown = styled.select`
   border-radius: 30px;
   width: 75px;
   height: 35px;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -288,7 +288,6 @@ export default class Search extends Component {
                 <Input placeholder="100" maxLength="3" value={this.state.targetBPM} onChange={this.handleChangeBPM} />
             </Filter>
           </Header>
-            
             <Overview>
                 <Section>
                     <ul>

@@ -10,6 +10,7 @@ import Loading from './Loading';
 import TrackItem from '../styles/TrackItem';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
+import media from '../styles/media';
 const { colors, fontSizes } = theme;
 
 const Header = styled.header`
@@ -28,13 +29,26 @@ const Container = styled.div`
 
 const Overview = styled.section`
   display: grid;
-  grid-template-columns: 7fr 6fr 1fr;
+  grid-template-columns: 3fr 5fr;
   grid-gap: 10px;
   width: 100%;
+  ${media.tablet`
+    grid-template-columns: 1fr;
+  `};
 `;
 
 const Section = styled.div`
   margin: 0px;
+`;
+
+const Row = styled.div`
+`;
+
+const Tracks = styled.section`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-gap: 10px;
+  width: 100%;
 `;
 
 const TracklistHeading = styled.div`
@@ -44,26 +58,30 @@ const TracklistHeading = styled.div`
     display: inline-block;
     margin: 0;
   }
-`;
-
-const DropdownLabels = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  h5 {
-    display: inline-block;
-    margin-bottom: 3px;
-  }
+  ${media.tablet`
+    margin-top: 20px;
+    justify-content: center;
+  `};
 `;
 
 const GenreLabel = styled.div`
-  margin-left: 70px;
+  ${media.tablet`
+    margin-top: 10px;
+  `};
 `;
 const PopularityLabel = styled.div`
-  margin-left: 155px;
+  margin-left: 10px;
+  ${media.tablet`
+    margin-left: 0px;
+    margin-top: 10px;
+  `};
 `;
 const KeyLabel = styled.div`
-  margin-left: 45px;
+  margin-left: 10px;
+  ${media.tablet`
+    margin-left: 0px;
+    margin-top: 10px;
+  `};
 `;
 
 const Title = styled.h1`
@@ -115,7 +133,7 @@ const BPMContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr max-content;
     grid-gap: 10px;
-    margin-top: 99px;
+    margin-top: 10px;
 `;
 
 const TrackBPM = styled.div`
@@ -129,8 +147,12 @@ const TrackBPM = styled.div`
 const Filter = styled.form`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   margin-bottom: 20px;
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 const GenreDropdown = styled.select`
@@ -138,8 +160,9 @@ const GenreDropdown = styled.select`
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
-  width: 180px;
-  margin-left: 70px;
+  width: 160px;
+  height: 35px;
+  margin-left: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -155,9 +178,9 @@ const PopularityDropdown = styled.select`
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
-  width: 100px;
+  width: 90px;
+  height: 35px;
   margin-left: 10px;
-  margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -173,9 +196,10 @@ const KeyDropdown = styled.select`
   color: ${colors.white};
   border: 1px solid ${colors.white};
   border-radius: 30px;
-  width: 75px;
+  width: 60px;
   height: 35px;
-  margin-right: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 5px 10px;
   font-size: ${fontSizes.xs};
   font-weight: 700;
@@ -186,6 +210,12 @@ const KeyDropdown = styled.select`
   }
 `;
 
+const Center = styled.div`
+  ${media.tablet`
+    display: flex;
+    justify-content: center;
+  `};
+`;
 const FilterButton = styled.input`
   background-color: ${colors.red};
   color: ${colors.white};
@@ -201,6 +231,10 @@ const FilterButton = styled.input`
     background-color: ${colors.brightRed};
     cursor: pointer;
   }
+  ${media.tablet`
+    display: block;
+    margin-top: 20px;
+  `};
 `;
 
 export default class NowPlaying extends Component {
@@ -275,9 +309,6 @@ export default class NowPlaying extends Component {
         <Main>
             <Overview>
                 <Section>
-                    {/* <Brand>
-                        <h1>Beat Switch</h1>
-                    </Brand> */}
                     <Header>
                         <h2>Now Playing</h2>
                     </Header>
@@ -311,15 +342,12 @@ export default class NowPlaying extends Component {
                     ) : <Loading /> }
                 </Section>
                 <Section>
+                  <Row>
                   <TracklistHeading>
                       <h3>Recommended Tracks</h3>
                   </TracklistHeading>
-                  <DropdownLabels>
-                      <GenreLabel><h5>Genre</h5></GenreLabel>
-                      <PopularityLabel><h5>Popularity</h5></PopularityLabel>
-                      <KeyLabel><h5>Key</h5></KeyLabel>
-                  </DropdownLabels>
                   <Filter onSubmit = {this.handleSubmit}>
+                        <GenreLabel><h5>Genre</h5></GenreLabel>
                         <GenreDropdown value={this.state.genre} onChange={this.handleChangeGenre} >
                           <option value="acoustic">Acoustic</option>
                           <option value="afrobeat">Afrobeat</option>
@@ -349,11 +377,13 @@ export default class NowPlaying extends Component {
                           {/* <option value="spanish">Spanish</option> */}
                           <option value="techno">Techno</option>
                         </GenreDropdown>
+                        <PopularityLabel><h5>Popularity</h5></PopularityLabel>
                         <PopularityDropdown value={this.state.targetPop} onChange={this.handleChangePopularity} >
                           <option value="90">High</option>
                           <option value="60">Mid</option>
                           <option value="25">Low</option>
                         </PopularityDropdown>
+                        <KeyLabel><h5>Key</h5></KeyLabel>
                         <KeyDropdown value={this.state.targetKey} onChange={this.handleChangeKey} >
                           <option value="0">C</option>
                           <option value="1">D♭</option>
@@ -368,23 +398,26 @@ export default class NowPlaying extends Component {
                           <option value="10">B♭</option>
                           <option value="11">B</option>
                         </KeyDropdown>
-                        <FilterButton type="submit" value="Filter" />
+                        <Center>
+                          <FilterButton type="submit" value="Filter" />
+                        </Center>
                   </Filter>
+                </Row>
+                <Tracks>
                   <ul>
                       {recommendedTracks ? recommendedTracks.data.tracks.map((track, i) => <TrackItem track={track} key={i} />) : ''}
                   </ul>
-                </Section>
-                <Section>
-                    <BPMContainer>
-                        {recommendedTracksAudioFeatures ? (
-                            <ul>
-                                {recommendedTracksAudioFeatures.audio_features.map((track, i) => (
-                                        <TrackBPM key={i}>{Math.round(track.tempo)} BPM</TrackBPM>  
-                            ))}
-                            </ul>
-                        ) : '' }
-                    </BPMContainer>
-                </Section>
+                  <BPMContainer>
+                      {recommendedTracksAudioFeatures ? (
+                          <ul>
+                              {recommendedTracksAudioFeatures.audio_features.map((track, i) => (
+                                      <TrackBPM key={i}>{Math.round(track.tempo)} BPM</TrackBPM>  
+                          ))}
+                          </ul>
+                      ) : '' }
+                  </BPMContainer>
+                </Tracks> 
+              </Section>
             </Overview>
         </Main>
     )
